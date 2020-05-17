@@ -1,0 +1,17 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+// Bootstrap
+//@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+// Variables
+@import 'variables';
+@import 'tournament';
+
+
+html, body{
+    font-family: "Helvetica Neue", Arial, sans-serif;
+}
+.modal-backdrop{
+    opacity: 0.8;
+}

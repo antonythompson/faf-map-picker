@@ -1,0 +1,23 @@
+.map-selection{
+    display: flex;
+    flex-flow: row wrap;
+    > div{
+        flex: 0;
+        padding: 5px;
+        margin-right: 5px;
+        margin-top: 5px;
+        cursor: pointer;
+        transition: all 300ms;
+        label{
+            cursor: pointer;
+        }
+        &.active{
+            background-color: #ccc;
+        }
+    }
+}
+#modal-new-tournament{
+    .el-select{
+        width: 100%;
+    }
+}
