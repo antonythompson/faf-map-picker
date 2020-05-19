@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Match;
 use Illuminate\Support\Facades\Broadcast;
 
 /*
@@ -12,7 +13,9 @@ use Illuminate\Support\Facades\Broadcast;
 | used to check if an authenticated user can listen to the channel.
 |
 */
-
-Broadcast::channel('App.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+Broadcast::channel('match.{match}', function ($user, Match $match) {
+    if (in_array($user->id, [$match->player_one_id, $match->player_two_id])) {
+        return ['id' => $user->id, 'name' => $user->name];
+    }
+    return null;
 });

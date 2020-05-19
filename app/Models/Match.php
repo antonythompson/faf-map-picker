@@ -6,6 +6,19 @@ use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Class Match
+ *
+ * @property int id
+ * @property int tournament_id
+ * @property int player_one_id
+ * @property int player_two_id
+ * @property int status_id
+ * @property-read Player playerOne
+ * @property-read Player playerTwo
+ *
+ * @package App\Models
+ */
 class Match extends AppModel
 {
     use Filterable;

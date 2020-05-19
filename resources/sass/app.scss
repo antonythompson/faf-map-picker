@@ -3,15 +3,72 @@
 // Bootstrap
 //@import '~bootstrap/scss/bootstrap';
 @import '~bootstrap/dist/css/bootstrap.min.css';
-
 // Variables
 @import 'variables';
 @import 'tournament';
 
 
-html, body{
+html, body {
     font-family: "Helvetica Neue", Arial, sans-serif;
 }
-.modal-backdrop{
+
+.modal-backdrop {
     opacity: 0.8;
+}
+
+#avatar-dropdown {
+    > button {
+        border: none;
+        border-radius: 50%;
+        position: relative;
+        padding: 0;
+
+        &::after {
+            position: absolute;
+            top: 55px;
+            right: 21px;
+            border-top-color: $colour_dark;
+        }
+
+        * {
+            border-radius: 50%;
+        }
+    }
+}
+
+#login-discord {
+    width: 100%;
+    border: 1px solid #ddd;
+    position: relative;
+    padding: 15px 10px 15px 55px;
+    padding-left: 50px;
+
+    img {
+        width: 50px;
+        position: absolute;
+        left: 5px;
+        top: 4px;
+    }
+}
+
+.login-or {
+    width: 100%;
+    text-align: center;
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    &::before, &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 45%;
+        border-bottom: 1px solid $colour_dark;
+    }
+    &::before{
+        left: 0;
+    }
+    &::after{
+        right: 0;
+    }
+
 }

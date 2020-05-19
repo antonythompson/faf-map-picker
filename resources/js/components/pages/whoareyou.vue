@@ -1,12 +1,11 @@
 <template>
     <div>
-        <b-modal id="modal-user-selection" ref="modal" title="Who are you?" @ok="save"
-                 @hide="save" v-model="show_modal">
+        <b-modal id="modal-user-selection" ref="modal" title="Who are you?" @ok="save" v-model="show_modal">
             <div class="user-selection">
                 <label for="user-search">
                     Before we get started, please find your FAF user.
                 </label><br />
-                <player-select id="user-search" v-model="user"></player-select>
+                <player-select id="user-search" v-model="player"></player-select>
             </div>
         </b-modal>
     </div>
@@ -26,7 +25,7 @@
                 loading: false,
                 selected_user_index: null,
                 search_users: [],
-                user: null
+                player: null
             }
         },
         mounted() {
@@ -38,10 +37,12 @@
         methods: {
             async save(e){
                 e.preventDefault();
-                if (this.user && this.user.id) {
-                    return true;
-                }
-                if (this.$currentPlayer) {
+                if (this.player && this.player.id && this.$loggedInUser) {
+                    let args = {
+                        user_id: this.$loggedInUser.id
+                    };
+                    let res = await apiController.update('players', args, this.player.id);
+                    console.log('save', res);
                     return true;
                 }
                 return false

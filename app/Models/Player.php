@@ -19,7 +19,7 @@ class Player extends AppModel
      * @var array
      */
     protected $fillable = [
-        'name',
+        'login',
         'user_id',
         'faf_id',
     ];

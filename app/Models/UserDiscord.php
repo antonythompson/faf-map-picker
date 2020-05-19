@@ -32,7 +32,10 @@ class UserDiscord extends Model
         'user_id',
         'username',
         'discriminator',
-        'avatar',
+        'access_token',
+        'expires_at',
+        'refresh_token',
+        'snowflake_id',
     ];
 
     public function user()

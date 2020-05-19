@@ -46,13 +46,9 @@ class PlayerController extends ResourceController
         if (!$player) {
             $data = $request->all();
             $player = Player::create([
-                'user_id' => auth('api')::user()->id,
                 'faf_id' => $faf_id,
-                'name' => $data['login'],
+                'login' => $data['login'],
             ]);
-        } else {
-            $player->user_id = Auth::user()->id;
-            $player->save();
         }
         return response()
             ->json([

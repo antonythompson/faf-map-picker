@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\MatchImHere;
 use App\Http\Controllers\ResourceController;
 use App\Models\Match;
+use App\Models\Player;
 use Illuminate\Http\Request;
 
 class MatchController extends ResourceController
@@ -28,6 +30,12 @@ class MatchController extends ResourceController
         return response()->json([
             'data' => $match
         ]);
+    }
+
+    public function imHere(Match $match, Player $player)
+    {
+//        broadcast(new MatchImHere($player, $match));
+        MatchImHere::dispatch($player, $match);
     }
 
 }

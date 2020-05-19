@@ -92,7 +92,14 @@ class LoginController extends AppController
             $user->setRelation('discord', $discord);
         }
 
-        Auth::login($user);
+        Auth::login($user, true);
+
+        return redirect('/');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
 
         return redirect('/');
     }

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Match;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\ServiceProvider;
 

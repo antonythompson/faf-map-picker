@@ -77,18 +77,36 @@
                 }
             },
             listen(){
-                let channel = this.$pusher.subscribe(`presence-match-${this.match_id}`);
-                channel.bind('map-banned', async ({ data }) => {
-                    await this.getMatch(this.match_id);
-                    console.log('map banned', data);
+
+                initEcho();
+                window.Echo.private(`match.${this.match_id}`).listen('MatchImHere', e => {
+                    console.log('MatchImHere', e);
                 });
-                channel.bind('pusher:subscription_succeeded', members => {
-                    this.connected_users = members;
-                });
-                this.connected_users = channel.members;
+                    // .here((users) => {
+                    //     console.log('Echo here', users);
+                    //     //
+                    // })
+                    // .joining((user) => {
+                    //     console.log('Echo joining', user.name);
+                    // })
+                    // .leaving((user) => {
+                    //     console.log('Echo leaving', user.name);
+                    // })
+
+                // let channel = this.$pusher.subscribe(`presence-match-${this.match_id}`);
+                // channel.bind('App\\Events\\MatchImHere', async ({ data }) => {
+                //     await this.getMatch(this.match_id);
+                //     console.log('map banned', data);
+                // });
+                // channel.bind('pusher:subscription_succeeded', members => {
+                //     this.connected_users = members;
+                // });
+                // this.connected_users = channel.members;
             },
 
             async onClick(map){
+                let res = await apiController.get('matches.imHere', {}, [this.match.id, this.$loggedInUser.player.id]);
+                console.log('onClick', res);
                 // let args = {
                 //     player_id: this.$currentPlayer.id,
                 //     map_id: map.id

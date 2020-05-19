@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('logout', 'Auth\LoginController@logout');
 Route::get('login/discord', 'Auth\LoginController@redirectToProvider');
 Route::get('login/discord/callback', 'Auth\LoginController@handleProviderCallback');
 

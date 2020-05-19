@@ -26,6 +26,7 @@
     "dependencies": {
         "bootstrap-vue": "^2.14.0",
         "element-ui": "^2.13.1",
+        "laravel-echo": "^1.8.0",
         "vue-pusher": "^1.0.0",
         "vue-router": "^3.1.6"
     }
