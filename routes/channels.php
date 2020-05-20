@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 Broadcast::channel('match.{match}', function ($user, Match $match) {
+    return ['id' => $user->id, 'name' => $user->name, 'match' => $match];
     if (in_array($user->id, [$match->player_one_id, $match->player_two_id])) {
         return ['id' => $user->id, 'name' => $user->name];
     }

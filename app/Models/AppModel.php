@@ -36,7 +36,6 @@ class AppModel extends Model
         if (!empty(static::$updateValidationFields)) {
             $validator = Validator::make($request->all(), static::$updateValidationFields);
             $data = $validator->validate();
-            dd($data);
             return $data;
         }
         return $request->all();

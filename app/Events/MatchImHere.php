@@ -42,4 +42,9 @@ class MatchImHere implements ShouldBroadcastNow
         return new PrivateChannel('match.'.$this->match->id);
 //        return new PresenceChannel('match.'.$this->match->id);
     }
+
+//    public function via($notifiable)
+//    {
+//        return ['broadcast'];
+//    }
 }

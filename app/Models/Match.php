@@ -57,15 +57,14 @@ class Match extends AppModel
 
     public static $storeValidationFields = [
         'tournament_id' => 'required|exists:tournaments,id',
-        'player_one_id' => 'required|exists:players',
-        'player_two_id' => 'required|exists:players',
+        'player_one_id' => 'required|exists:players,id',
+        'player_two_id' => 'required|exists:players,id',
     ];
 
     public static $updateValidationFields = [
-        'id' => 'required|exists:matches',
         'tournament_id' => 'required|exists:tournaments,id',
-        'player_one_id' => 'required|exists:players',
-        'player_two_id' => 'required|exists:players',
+        'player_one_id' => 'required|exists:players,id',
+        'player_two_id' => 'required|exists:players,id',
     ];
 
     public function tournament()

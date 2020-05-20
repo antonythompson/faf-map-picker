@@ -86,10 +86,16 @@
             },
             async onSave(){
                 let res;
+                let args = {
+                    player_one_id: this.model.player_one.id,
+                    player_two_id: this.model.player_two.id,
+                    tournament_id: this.model.tournament_id,
+                };
                 if (this.model.id) {
-                    res = await apiController.update('matches', this.model, this.model.id);
+
+                    res = await apiController.update('matches', args, this.model.id);
                 } else {
-                    res = await apiController.store('matches', this.model);
+                    res = await apiController.store('matches', args);
                 }
 
                 if (res.data) {

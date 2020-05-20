@@ -28,4 +28,9 @@ class MatchChannel
     {
         return in_array($user->id, [$match->player_one_id, $match->player_two_id]);
     }
+
+    public function via($notifiable)
+    {
+        return ['broadcast'];
+    }
 }

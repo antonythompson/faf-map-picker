@@ -14,11 +14,12 @@
 <script>
     import apiController from '../../api/api_resource';
     import playerSelect from '../common/player-selector';
-
+    import bootstrapValidation from '../mixins/bootstrap-validation';
     export default {
         components: {
             'player-select': playerSelect,
         },
+        mixins: [bootstrapValidation],
         data(){
             return {
                 show_modal: false,
@@ -42,8 +43,9 @@
                         user_id: this.$loggedInUser.id
                     };
                     let res = await apiController.update('players', args, this.player.id);
-                    console.log('save', res);
-                    return true;
+                    if (res.data) {
+                        this.show_modal = false;
+                    }
                 }
                 return false
             }

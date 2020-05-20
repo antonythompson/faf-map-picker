@@ -78,20 +78,24 @@
             },
             listen(){
 
-                initEcho();
-                window.Echo.private(`match.${this.match_id}`).listen('MatchImHere', e => {
-                    console.log('MatchImHere', e);
-                });
-                    // .here((users) => {
-                    //     console.log('Echo here', users);
-                    //     //
-                    // })
-                    // .joining((user) => {
-                    //     console.log('Echo joining', user.name);
-                    // })
-                    // .leaving((user) => {
-                    //     console.log('Echo leaving', user.name);
-                    // })
+                // initEcho();
+                Echo.join(`match.${this.match_id}`)
+                    .notification((notification) => {
+                        console.log(notification);
+                    })
+                // window.Echo.private(`match.${this.match_id}`).listen('MatchImHere', e => {
+                //     console.log('MatchImHere', e);
+                // });
+                    .here((users) => {
+                        console.log('Echo here', users);
+                        //
+                    })
+                    .joining((user) => {
+                        console.log('Echo joining', user.name);
+                    })
+                    .leaving((user) => {
+                        console.log('Echo leaving', user.name);
+                    })
 
                 // let channel = this.$pusher.subscribe(`presence-match-${this.match_id}`);
                 // channel.bind('App\\Events\\MatchImHere', async ({ data }) => {
