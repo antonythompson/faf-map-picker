@@ -62,7 +62,7 @@
                 },
                 tournament: {},
                 search_maps: [],
-                maps: [],
+                maps: [], 
             }
         },
         async mounted() {
