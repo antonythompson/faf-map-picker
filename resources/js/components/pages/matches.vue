@@ -62,10 +62,11 @@
                 },
                 tournament: {},
                 search_maps: [],
-                maps: [], 
+                maps: [],
             }
         },
         async mounted() {
+            //thing
             this.getTournament();
         },
         computed: {
