@@ -4,6 +4,9 @@
         <b-button v-b-modal.modal-new-tournament v-if="$loggedInUser.role_id === 2">Add new</b-button>
 
         <b-modal id="modal-new-tournament" :title="modalTitle" @ok="save" v-model="show_modal" size="lg">
+            <template v-slot:modal-ok>
+                Save
+            </template>
             <label for="tournament-name">
                 Name
                 <b-form-input id="tournament-name" v-model="model.name" />
