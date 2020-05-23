@@ -22,8 +22,6 @@ class MakeMatchesTable extends Migration
         Schema::create('tournaments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('created_by');
-            $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
             $table->timestamps();
             $table->softDeletes();
         });
