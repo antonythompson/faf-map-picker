@@ -25,5 +25,5 @@
             var loggedInUser = false;
         @endif
     </script>
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}?version=1"></script>
 </html>

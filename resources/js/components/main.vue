@@ -14,7 +14,6 @@
                         <div class="navbar-nav mr-auto">
                             <template v-if="$loggedInUser">
                                 <router-link class="nav-item nav-link" :to="{ name: 'tournaments' }">Tournaments</router-link>
-                                <router-link class="nav-item nav-link" :to="{ name: 'maps' }">Maps</router-link>
                             </template>
                         </div>
                         <div v-if="$loggedInUser">
