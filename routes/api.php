@@ -18,10 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'as' => 'api.'
 ], function(){
-    Route::get('matches/test', 'Api\MatchController@test')->name('matches.test');
     Route::post('matches/{match}/ban-map', 'Api\MatchController@banMap')->name('matches.banMap');
     Route::post('players/create-faf', 'Api\PlayerController@createFaf')->name('players.createFaf');
     Route::get('players/search', 'Api\PlayerController@search')->name('players.search');
+    Route::post('maps/create-faf', 'Api\MapController@createFaf')->name('maps.createFaf');
     Route::get('maps/search', 'Api\MapController@search')->name('maps.search');
     Route::apiResources([
         'matches' => 'Api\MatchController',

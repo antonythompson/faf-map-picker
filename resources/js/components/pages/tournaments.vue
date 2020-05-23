@@ -1,9 +1,9 @@
 <template>
     <div>
         <h3>Tournaments</h3>
-        <b-button v-b-modal.modal-new-tournament>Add new</b-button>
+        <b-button v-b-modal.modal-new-tournament v-if="$loggedInUser.role_id === 2">Add new</b-button>
 
-        <b-modal id="modal-new-tournament" :title="modalTitle" @ok="save" v-model="show_modal">
+        <b-modal id="modal-new-tournament" :title="modalTitle" @ok="save" v-model="show_modal" size="lg">
             <label for="tournament-name">
                 Name
                 <b-form-input id="tournament-name" v-model="model.name" />
@@ -17,10 +17,15 @@
                 Maps left over
                 <b-form-input type="number" id="tournament-map_count" v-model="model.map_count" />
             </label>
+            <label for="show-hidden-maps">
+                Show hidden maps - Original maps like Finn's Revenge are hidden. If you can't find a map, try enabling this
+                <b-form-checkbox type="number" id="show-hidden-maps" v-model="show_hidden" :value="1" :unchecked-value="0"/>
+            </label><br />
             <label for="map-search">
                 Faf map search
             </label><br />
             <el-select
+                ref="map_search"
                 id="map-search"
                 v-model="map_search"
                 filterable
@@ -74,6 +79,7 @@
         data(){
             return {
                 show_modal: false,
+                show_hidden: false,
                 loading: false,
                 map_search: '',
                 model: {
@@ -107,7 +113,7 @@
                 return `${map.displayName}`;
             },
             async searchMaps(term){
-                let args = {term};
+                let args = {term, show_hidden: this.show_hidden};
                 this.loading = true;
                 console.log('searchMaps', args);
                 let maps = await apiController.get('maps.search', args);
@@ -118,11 +124,11 @@
                 let map = this.search_maps[i];
                 let exists = false;
                 this.maps.forEach(m => {
-                    if (m.faf_id === map.faf_id) {
-                        exists = true;
+                    if (parseInt(m.faf_id) === parseInt(map.faf_id)) {
+                        exists = m;
                     }
                 });
-                if (!exists) {
+                if (exists === false) {
                     let res = await apiController.post('maps.store', {
                         name: map.displayName,
                         width: map.width,
@@ -135,10 +141,13 @@
                     });
                     this.maps.push(res.data);
                     this.model.maps.push(res.data.id);
+                } else {
+                    this.model.maps.push(exists.id);
                 }
                 this.map_search = '';
-
-                console.log('onMapAdd', res);
+                this.$nextTick(() => {
+                    this.$refs.map_search.focus();
+                });
             },
             async getTournaments(){
                 let res = await apiController.index('tournaments');

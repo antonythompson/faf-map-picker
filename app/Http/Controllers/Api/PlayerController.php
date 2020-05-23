@@ -53,7 +53,6 @@ class PlayerController extends ResourceController
         return response()
             ->json([
                 'data' => $player
-            ])
-            ->withCookie(cookie()->forever('player', $player));
+            ]);
     }
 }

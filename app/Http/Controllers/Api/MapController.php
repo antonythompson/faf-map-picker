@@ -19,17 +19,19 @@ class MapController extends ResourceController
     {
         $maps = [];
         $term = $request->input('term', false);
+        $show_hidden = $request->input('show_hidden', false);
         if ($term) {
             $term = urlencode($term);
-            $url = "https://api.faforever.com/data/map?include=latestVersion&page[size]=20&filter=displayName=='*$term*'";
+            $url = "https://api.faforever.com/data/map?include=latestVersion&page[size]=20&filter=displayName==\"*$term*\"";
             $json = file_get_contents($url);
             $data = json_decode($json, true);
+
             if (!empty($data['data'])) {
                 foreach ($data['data'] as $i => $datum) {
                     $map = $data['included'][$i]['attributes'];
                     $map['faf_id'] = $datum['id'];
                     $map['displayName'] = $datum['attributes']['displayName'];
-                    if (!$map['hidden']) {
+                    if (!$map['hidden'] || $show_hidden) {
                         $maps[] = $map;
                     }
                 }
@@ -39,5 +41,4 @@ class MapController extends ResourceController
             'data' => $maps
         ]);
     }
-
 }

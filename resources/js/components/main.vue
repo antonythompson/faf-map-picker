@@ -54,9 +54,6 @@
             'login': login,
         },
         mounted() {
-
-            Api.get('matches.test');
-
         }
     }
 </script>
