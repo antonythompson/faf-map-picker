@@ -1,7 +1,7 @@
 <template>
     <div>
         <h3>Tournaments</h3>
-        <b-button v-b-modal.modal-new-tournament v-if="$loggedInUser.role_id === 2">Add new</b-button>
+        <b-button v-b-modal.modal-new-tournament v-if="$loggedInUser.role_id === 2" @click="resetModel">Add new</b-button>
 
         <b-modal id="modal-new-tournament" :title="modalTitle" @ok="save" v-model="show_modal" size="lg">
             <template v-slot:modal-ok>
@@ -164,6 +164,8 @@
             resetModel(){
                 this.model = {
                     name: '',
+                    ban_count: 5,
+                    map_count: 5,
                     maps: [],
                 };
             },
