@@ -9,32 +9,21 @@
         <h3 v-if="!done && !my_match">The maps haven't been picked yet.</h3>
         <div class="map-selection" v-if="done">
             <template v-for="map in match.picked_maps">
-                <div :class="mapClass(map.id)" @click="onClick(map)">
-                    <label :for="'map-' + map.id">
-                        <img :src="map.thumbnail_url" :alt="map.name" /><br />
-                        <span>{{map.name}}</span>
-                    </label>
-                </div>
+                <map-view :map="map" :classes="mapClass(map.id)" @click="onClick(map)"></map-view>
             </template>
         </div>
         <h3 v-if="done">Banned maps</h3>
         <div v-if="done" class="map-selection">
             <template v-for="map in match.banned_maps">
                 <div>
-                    <label :for="'map-' + map.id">
-                        <img :src="map.thumbnail_url" :alt="map.name" /><br />
-                        <span>{{map.name}}</span>
-                    </label>
+                    <map-view :map="map"></map-view>
                 </div>
             </template>
         </div>
         <div v-if="!done" class="map-selection">
             <template v-for="map in match.tournament.maps">
                 <div :class="mapClass(map.id)" @click="onClick(map)">
-                    <label :for="'map-' + map.id">
-                        <img :src="map.thumbnail_url" :alt="map.name" /><br />
-                        <span>{{map.name}}</span>
-                    </label>
+                    <map-view :map="map"></map-view>
                 </div>
             </template>
         </div>
@@ -43,9 +32,13 @@
 
 <script>
     import apiController from '../../api/api_resource';
+    import mapView from '../common/map'
     let channel;
     export default {
         props: ['tournament_id', 'match_id'],
+        components: {
+            'map-view': mapView
+        },
         data(){
             return {
                 match: {

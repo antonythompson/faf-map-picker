@@ -48,11 +48,10 @@
             </el-select>
             <div class="map-selection">
                 <template v-for="map in maps">
-                    <div :class="model.maps.indexOf(map.id) !== -1 ? 'active' : ''">
+                    <div :class="model.maps.indexOf(map.id) !== -1 ? 'active' : ''" class="map">
                         <label :for="'map-' + map.id">
                             <b-form-checkbox :id="'map-' + map.id" v-model="model.maps" :value="map.id" v-show="false"></b-form-checkbox>
-                            <img :src="map.thumbnail_url" :alt="map.name" /><br />
-                            <span>{{map.name}}</span>
+                            <map-view :map="map"></map-view>
                         </label>
                     </div>
                 </template>
@@ -77,8 +76,12 @@
 
 <script>
     import apiController from '../../api/api_resource';
+    import mapView from '../common/map'
     export default {
         props: ['value'],
+        components: {
+            'map-view': mapView
+        },
         data(){
             return {
                 show_modal: false,
