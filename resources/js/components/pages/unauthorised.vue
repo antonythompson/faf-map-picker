@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h3>Please login</h3>
+        You are not authorised to do that
     </div>
 </template>
 

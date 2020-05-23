@@ -92,7 +92,19 @@ class Match extends AppModel
     public function pickedMaps()
     {
         return $this->belongsToMany(Map::class, 'match_picked_maps')
-            ->withPivot(['picked_by'])
+            ->withPivot(['picked_by', 'order'])
+            ->orderBy('order')
+            ->orderBy('id')
             ->withTimestamps();
+    }
+
+    public function isMapBanned($map_id)
+    {
+        foreach ($this->bannedMaps as $map) {
+            if ($map_id === $map->id) {
+                return true;
+            }
+        }
+        return false;
     }
 }

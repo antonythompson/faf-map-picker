@@ -20,7 +20,12 @@ class Map extends AppModel
      */
     protected $fillable = [
         'name',
+        'download_url',
         'thumbnail_url',
         'faf_id',
+        'width',
+        'height',
+        'max_players',
+        'version',
     ];
 }

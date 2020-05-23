@@ -18,22 +18,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-//        View::composer(
-//            ['spa'],
-//            function ($view) {
-//
-//                //add user to view
-//                if (Auth::check()) {
-//                    $user = Auth::user()->load('player');
-//                } else {
-//                    $user = null;
-//                }
-////                $player = request()->cookie('player');
-////                $player = Cookie::get('player');
-//                $user = ['player' => $player];
-//                $view->with('loggedInUser', json_encode($user));
-//            }
-//        );
+        //
     }
 
     /**

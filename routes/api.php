@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,8 +15,10 @@ use Illuminate\Support\Facades\Route;
 /**
  * Resources
  */
-Route::group(['as' => 'api.'], function(){
-    Route::get('matches/{match}/im-here/{player}', 'Api\MatchController@imHere')->name('matches.imHere');
+Route::group([
+    'as' => 'api.'
+], function(){
+    Route::get('matches/test', 'Api\MatchController@test')->name('matches.test');
     Route::post('matches/{match}/ban-map', 'Api\MatchController@banMap')->name('matches.banMap');
     Route::post('players/create-faf', 'Api\PlayerController@createFaf')->name('players.createFaf');
     Route::get('players/search', 'Api\PlayerController@search')->name('players.search');

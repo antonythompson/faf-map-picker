@@ -42,9 +42,15 @@ const routes = [
         name:'home',
         path: '/',
         component: home,
+        beforeEnter(to, from, next){
+            if (window.loggedInUser) {
+                next({name: 'tournaments'});
+            }
+            next();
+        },
     },
     {
-        name:'tournaments',
+        name: 'tournaments',
         path: '/tournaments',
         component: tournaments
     },
@@ -69,6 +75,13 @@ const routes = [
 const router = new VueRouter({
     mode: 'history',
     routes,
+});
+router.beforeEach((to, from, next) => {
+    console.log('before each', to, from, next);
+    if (!window.loggedInUser && to.name !== 'home') {
+        next('/');
+    }
+    next();
 });
 
 /**

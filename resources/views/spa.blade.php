@@ -8,6 +8,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
@@ -18,7 +19,11 @@
     </body>
     @routes
     <script>
-        var loggedInUser = {!! $loggedInUser !!};
+        @if (isset($loggedInUser))
+            var loggedInUser = {!! $loggedInUser !!};
+        @else
+            var loggedInUser = false;
+        @endif
     </script>
     <script src="{{ asset('js/app.js') }}"></script>
 </html>

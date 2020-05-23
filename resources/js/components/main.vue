@@ -12,16 +12,19 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div class="navbar-nav mr-auto">
-                            <router-link class="nav-item nav-link" :to="{ name: 'tournaments' }">Tournaments</router-link>
-                            <router-link class="nav-item nav-link" :to="{ name: 'maps' }">Maps</router-link>
+                            <template v-if="$loggedInUser">
+                                <router-link class="nav-item nav-link" :to="{ name: 'tournaments' }">Tournaments</router-link>
+                                <router-link class="nav-item nav-link" :to="{ name: 'maps' }">Maps</router-link>
+                            </template>
                         </div>
                         <div v-if="$loggedInUser">
-                            <b-dropdown id="avatar-dropdown">
+                            <b-dropdown id="avatar-dropdown" v-if="$loggedInUser.discord.avatar" >
                                 <template v-slot:button-content>
-                                    <img :src="$loggedInUser.discord.avatar" alt="Discord Avatar"  width="52"/>
+                                    <img :src="$loggedInUser.discord.avatar" alt="Discord Avatar" width="52"/>
                                 </template>
                                 <b-dropdown-item href="/logout">Logout</b-dropdown-item>
                             </b-dropdown>
+                            <a v-else href="/logout">Logout</a>
                         </div>
                         <div v-else>
                             <b-button v-b-modal.login-modal>Login</b-button>
@@ -55,12 +58,15 @@
 
 <script>
     import whoareyou from './pages/whoareyou';
+    import Api from '../api/api_resource';
     export default {
         components: {
             'whoareyou': whoareyou
         },
         mounted() {
-            console.log('Main mounted.')
+
+            Api.get('matches.test');
+
         }
     }
 </script>
