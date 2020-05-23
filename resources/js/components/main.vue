@@ -53,6 +53,7 @@
             'login': login,
         },
         mounted() {
+            console.log('main mounted... 123');
         }
     }
 </script>

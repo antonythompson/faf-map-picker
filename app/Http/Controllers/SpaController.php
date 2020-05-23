@@ -15,7 +15,7 @@ class SpaController extends AppController
             $user->load(['player', 'discord']);
         }
         return view('spa', [
-            'loggedInUser' => $user
+            'loggedInUser' => $user,
         ]);
     }
 }
