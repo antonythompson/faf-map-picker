@@ -29,19 +29,7 @@
                         <div v-else>
                             <b-button v-b-modal.login-modal>Login</b-button>
                             <b-modal id="login-modal" title="Login" hide-footer>
-
-                                    <b-form-group label="Email">
-                                        <b-form-input v-model="email" placeholder="Email"></b-form-input>
-                                    </b-form-group>
-                                    <b-form-group label="Password">
-                                        <b-form-input v-model="password" placeholder="Password"></b-form-input>
-                                    </b-form-group>
-                                <b-button @click="loginSubmit">Submit</b-button>
-                                <div class="login-or">OR</div>
-                                <a id="login-discord" href="/login/discord" class="btn btn-default">
-                                    <img id="login-discord-image" class="mr-auto" src="/images/discord-logo-purple.svg" alt="Discord"/>
-                                    Login with Discord
-                                </a>
+                                <login></login>
                             </b-modal>
                         </div>
                     </div>
@@ -58,10 +46,12 @@
 
 <script>
     import whoareyou from './pages/whoareyou';
+    import login from './common/login';
     import Api from '../api/api_resource';
     export default {
         components: {
-            'whoareyou': whoareyou
+            'whoareyou': whoareyou,
+            'login': login,
         },
         mounted() {
 

@@ -28,8 +28,13 @@
                     vs
                     <span v-if="match.player_two">{{match.player_two.login}}</span>
                 <td>
-                    <b-button v-if="match.status_id === 2" @click="onEdit(match)">Edit</b-button>
-                    <b-button v-if="match.player_one && match.player_two" @click="$router.push({name: 'match', params: {match_id: match.id}})">Pick</b-button>
+                    <b-button v-if="match.status_id === 2 && $loggedInUser.role_id === 2" @click="onEdit(match)">Edit</b-button>
+                    <b-button @click="$router.push({name: 'match', params: {match_id: match.id}})" :variant="showPick(match) ? 'success' : ''">
+                        <template v-if="showPick(match)">
+                            Pick
+                        </template>
+                        <template v-else>View</template>
+                    </b-button>
                 </td>
             </tr>
         </table>
@@ -72,6 +77,15 @@
             }
         },
         methods: {
+            showPick(match){
+                if (match.player_one && match.player_two
+                    && (this.$loggedInUser.player.id ===   match.player_two_id
+                        ||
+                        this.$loggedInUser.player.id ===   match.player_one_id)){
+                    return true;
+                }
+                return false;
+            },
             async onSaveClose(){
                 this.onSave();
                 this.show_modal = false;

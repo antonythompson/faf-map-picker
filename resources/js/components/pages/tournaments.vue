@@ -59,7 +59,7 @@
             <tr v-for="tournament in tournaments">
                 <td>{{tournament.name}}</td>
                 <td>
-                    <b-button @click="onEdit(tournament)">Edit</b-button>
+                    <b-button @click="onEdit(tournament)" v-if="$loggedInUser.role_id === 2">Edit</b-button>
                     <router-link class="btn btn-primary" :to="{ name: 'matches', params: {tournament_id: tournament.id} }">Matches</router-link>
                 </td>
             </tr>

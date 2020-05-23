@@ -22,6 +22,8 @@ class MakeMatchesTable extends Migration
         Schema::create('tournaments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->integer('created_by');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -44,8 +46,6 @@ class MakeMatchesTable extends Migration
             $table->foreign('player_one_id')->references('id')->on('players')->onDelete('set null');
             $table->unsignedInteger('player_two_id')->nullable();
             $table->foreign('player_two_id')->references('id')->on('players')->onDelete('set null');
-            $table->unsignedInteger('map_id')->nullable();
-            $table->foreign('map_id')->references('id')->on('maps')->onDelete('set null');
             $table->timestamps();
             $table->softDeletes();
         });

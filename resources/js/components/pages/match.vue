@@ -2,10 +2,11 @@
     <div>
         <h3>Tournament: {{match.tournament.name}}</h3>
         <h4 v-if="match.player_one && match.player_two">{{match.player_one.login}} vs {{match.player_two.login}}</h4>
-        <h2>Status: <b-badge :variant="statusVariant">{{status}}</b-badge></h2>
+        <h2 v-if="my_match">Status: <b-badge :variant="statusVariant">{{status}}</b-badge></h2>
         <h4>Maps</h4>
-        <b-button @click="startPicking" v-if="ready && !started">Start Picking</b-button>
+        <b-button @click="startPicking" v-if="my_match && ready && !started">Start Picking</b-button>
         <h3 v-if="done">Play the maps in this order</h3>
+        <h3 v-if="!done && !my_match">The maps haven't been picked yet.</h3>
         <div class="map-selection" v-if="done">
             <template v-for="map in match.picked_maps">
                 <div :class="mapClass(map.id)" @click="onClick(map)">
@@ -50,6 +51,7 @@
                 },
                 my_bans: [],
                 their_bans: [],
+                my_match: false,
                 ready: false,
                 started: false,
                 my_turn: false,
@@ -121,6 +123,9 @@
                 //check the players
                 let theirs = [];
                 let mine = [];
+                if (this.match.player_one_id === this.$loggedInUser.player.id || this.match.player_two_id === this.$loggedInUser.player.id ) {
+                    this.my_match = true;
+                }
                 //get the bans
                 if (this.match.banned_maps && this.match.banned_maps.length) {
                     this.match.banned_maps.forEach(map => {
@@ -146,7 +151,6 @@
                 }
             },
             listen(){
-
                 initEcho();
                 channel = Echo.join(`match.${this.match_id}`)
                     .notification((notification) => {
@@ -173,20 +177,10 @@
                     .leaving((user) => {
                         this.ready = false;
                     })
-
-                // let channel = this.$pusher.subscribe(`presence-match-${this.match_id}`);
-                // channel.bind('App\\Events\\MatchImHere', async ({ data }) => {
-                //     await this.getMatch(this.match_id);
-                //     console.log('map banned', data);
-                // });
-                // channel.bind('pusher:subscription_succeeded', members => {
-                //     this.connected_users = members;
-                // });
-                // this.connected_users = channel.members;
             },
 
             async onClick(map){
-                if (this.my_turn && !this.done) {
+                if (this.my_match && this.my_turn && !this.done) {
                     if (this.my_bans.indexOf(map.id) !== -1) {
                         this.message_override = 'You already picked that map!';
                     } else if (this.their_bans.indexOf(map.id) !== -1) {
@@ -209,17 +203,6 @@
                         }
                     }
                 }
-                // let res = await apiController.get('matches.imHere', {}, [this.match.id, this.$loggedInUser.player.id]);
-                // console.log('onClick', res);
-                // let args = {
-                //     player_id: this.$currentPlayer.id,
-                //     map_id: map.id
-                // };
-                // let res = await apiController.post('matches.banMap', args, this.match.id);
-                // if (res.data) {
-                //     res.data
-                //     this.checkMatch();
-                // }
             },
             async createNew(){
                 let match = await apiController.store('matches', {tournament_id: this.tournament_id});
