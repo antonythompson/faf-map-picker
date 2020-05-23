@@ -85,6 +85,7 @@ class Match extends AppModel
     public function bannedMaps()
     {
         return $this->belongsToMany(Map::class, 'match_banned_maps')
+            ->orderBy('match_banned_maps.created_at')
             ->withPivot(['banned_by'])
             ->withTimestamps();
     }

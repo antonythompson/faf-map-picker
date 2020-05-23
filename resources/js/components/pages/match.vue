@@ -18,8 +18,18 @@
             </template>
         </div>
         <h3 v-if="done">Banned maps</h3>
-        <div class="map-selection">
+        <div v-if="done" class="map-selection">
             <template v-for="map in match.banned_maps">
+                <div>
+                    <label :for="'map-' + map.id">
+                        <img :src="map.thumbnail_url" :alt="map.name" /><br />
+                        <span>{{map.name}}</span>
+                    </label>
+                </div>
+            </template>
+        </div>
+        <div v-if="!done" class="map-selection">
+            <template v-for="map in match.tournament.maps">
                 <div :class="mapClass(map.id)" @click="onClick(map)">
                     <label :for="'map-' + map.id">
                         <img :src="map.thumbnail_url" :alt="map.name" /><br />
